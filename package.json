@@ -1,0 +1,31 @@
+{
+  "name": "retrobot",
+  "version": "1.0.0",
+  "description": "A Slack bot to record retrospectives!",
+  "main": "main.js",
+  "dependencies": {
+    "shuffle-array": "^0.1.0",
+    "dotenv": "^1.2.0",
+    "slack-client": "^1.4.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PebbleKat/retrobot.git"
+  },
+  "keywords": [
+    "Slack",
+    "slack",
+    "retrospective",
+    "retro"
+  ],
+  "author": "Katherine McAuliffe <kgmcauliffe@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PebbleKat/retrobot/issues"
+  },
+  "homepage": "https://github.com/PebbleKat/retrobot#readme"
+}

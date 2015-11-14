@@ -1,7 +1,8 @@
+require("dotenv").load()
 var SlackClient = require("slack-client")
 var shuffle = require("shuffle-array")
 
-var token = "xoxb-14558007971-sBnunZdIb59EopEAKyIcLt57" // slackbot's integration token.
+var token = process.env.SLACK_TOKEN // slackbot's integration token.
 var autoReconnect = true // Automatically reconnect after an error response from Slack.
 var autoMark = true // Automatically mark each message as read after it is processed.
 var channels = {}
@@ -24,7 +25,6 @@ function startretro(channelID) {
 		plus: [],
 		minus: [],
 		question: []
-		users: []
 	}
 	var channel = slackbot.getChannelGroupOrDMByID(channelID)
 	console.log("Starting Retro")
@@ -54,10 +54,6 @@ function addtoarray(channelID, line, type) {
 		channels[channelID][type].push(line)
 		console.log(channels)
 	}
-}
-
-function adduser(channelID) {
-
 }
 
 function slackmessage(message) {

@@ -43,16 +43,23 @@ function stopretro(channelID) {
 	shuffle(channels[channelID].props)
 	// Send the full retro to post
 	var channel = slackbot.getChannelGroupOrDMByID(channelID)
-	var summary = "```Randomized Summary of Inputs From This Retrospective \n\n"
-	summary += "# Positives: \n" + channels[channelID].plus.join("\n")
-	summary += "\n\n# Negatives: \n" + channels[channelID].minus.join("\n")
-	summary += "\n\n# Questions: \n" + channels[channelID].question.join("\n")
-	summary += "\n\n# Ideas: \n" + channels[channelID].idea.join("\n")
-	summary += "\n\n# Props: \n" + channels[channelID].props.join("\n")
+	var summary = "```Randomized Summary of Inputs From This Retrospective"
+	summary += display(channelID, "Positives", "plus")
+	summary += display(channelID, "Negatives", "minus")
+	summary += display(channelID, "Questions", "question")
+	summary += display(channelID, "Ideas", "idea")
+	summary += display(channelID, "Props", "props")
 	summary += "```"
 	channel.send(summary)
 	// Delete retro to reset
 	delete channels[channelID]
+}
+
+function display(channelID, name, type) {
+	if (channels[channelID][type].length !== 0) {
+		return "\n\n# " + name + ": \n" + channels[channelID][type].join("\n")
+	}
+	return ""
 }
 
 function addtoarray(channelID, line, type) {

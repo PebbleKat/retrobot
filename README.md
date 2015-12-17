@@ -15,6 +15,6 @@ This will stop the retrospective session and print out a randomized summary of t
 
 Help file to explain all commands and how to give feedback.
 
-To make a positive remark, start your message with `+`. Negative or needs improvement, start with `-`. For questions or ideas, start your messsage with a `?`
+To make a positive remark, start your message with +. Negative or needs improvement, start with -. For questions, start your messsage with a ?, ideas start with !, and if you want to give props to a teammate start it with *.
 
 You can put multiple pieces of feedback in one message if you'd rather not print each thought on a new line.

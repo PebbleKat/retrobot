@@ -24,11 +24,13 @@ function startretro(channelID) {
 	channels[channelID] = {
 		plus: [],
 		minus: [],
-		question: []
+		question: [],
+		idea: [],
+		props: []
 	}
 	var channel = slackbot.getChannelGroupOrDMByID(channelID)
 	console.log("Starting Retro")
-	channel.send("<!here|here>: Starting Retro Recording. \n Please use + for positive, - for negative, and ? for questions!")
+	channel.send("<!here|here>: Starting Retro Recording. \n Please use `+` for positive, `-` for needs improvement, `?` for questions, `!` for ideas, and `*` to give props to someone!")
 }
 
 function stopretro(channelID) {
@@ -37,12 +39,16 @@ function stopretro(channelID) {
 	shuffle(channels[channelID].plus)
 	shuffle(channels[channelID].minus)
 	shuffle(channels[channelID].question)
+	shuffle(channels[channelID].idea)
+	shuffle(channels[channelID].props)
 	// Send the full retro to post
 	var channel = slackbot.getChannelGroupOrDMByID(channelID)
 	var summary = "```Randomized Summary of Inputs From This Retrospective \n\n"
 	summary += "# Positives: \n" + channels[channelID].plus.join("\n")
 	summary += "\n\n# Negatives: \n" + channels[channelID].minus.join("\n")
 	summary += "\n\n# Questions: \n" + channels[channelID].question.join("\n")
+	summary += "\n\n# Ideas: \n" + channels[channelID].idea.join("\n")
+	summary += "\n\n# Props: \n" + channels[channelID].props.join("\n")
 	summary += "```"
 	channel.send(summary)
 	// Delete retro to reset
@@ -72,9 +78,11 @@ function slackmessage(message) {
 	    		+ "To start your retrospective type `@retrobot start`. "
 	    		+ "To end the retrospective and print out a randomized summary of feedback type `@retrobot stop`.\n\n"
 	    		+ "To make a positive remark, start your message with `+`. Negative or needs improvement, start with `-`. "
-	    		+ "For questions or ideas, start your messsage with a `?`\n\n"
+	    		+ "For questions you may have, start your messsage with a `?`.\n\n"
+	    		+ "For ideas you may have, start your messsage with a `!`.\n\n"
+	    		+ "To give props to someone for a job well done or help you got, start your messsage with a `*` and mention what they did to be awesome!\n\n"
 	    		+ "You can put multiple pieces of feedback in one message if you'd rather not print each thought on a new line.\n\n"
-	    		+ "I was made by @kat. Please direct questions or feedback to her.")
+	    		+ "I was made by kat. Please direct questions or feedback to her.")
 	    }
 	    else {
 	    	channel.send("That is not a retro command! (Try @retrobot help)")
@@ -97,6 +105,12 @@ function slackmessage(message) {
 					break
 				case "?":
 					addtoarray(message.channel, lines[i], "question")
+					break
+				case "!":
+					addtoarray(message.channel, lines[i], "idea")
+					break
+				case "*":
+					addtoarray(message.channel, lines[i], "props")
 					break
 			}
 		}
